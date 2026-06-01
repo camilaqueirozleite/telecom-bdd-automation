@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js",
+    "test:api": "cucumber-js features/bank-transfer.feature",
+    "test:ui": "cucumber-js features/bank-transfer-ui.feature",
     "pretest:report": "node -e \"require('fs').mkdirSync('reports', { recursive: true })\"",
     "test:report": "cucumber-js --format progress --format html:reports/cucumber-report.html"
   },
@@ -14,6 +16,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@cucumber/cucumber": "^12.9.0",
-    "chai": "^6.2.2"
+    "chai": "^6.2.2",
+    "playwright": "^1.60.0"
   }
 }
