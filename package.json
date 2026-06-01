@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js",
+    "pretest:report": "node -e \"require('fs').mkdirSync('reports', { recursive: true })\"",
+    "test:report": "cucumber-js --format progress --format html:reports/cucumber-report.html"
   },
   "keywords": [],
   "author": "",
