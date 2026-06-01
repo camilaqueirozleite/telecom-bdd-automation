@@ -83,6 +83,21 @@ Feature: Bank Transfers Web UI
 
 - Node.js instalado
 - npm instalado
+- API bancaria da mentoria em execucao local
+- Frontend bancario da mentoria em execucao local
+
+## Aplicacao da mentoria
+
+Este projeto automatiza uma aplicacao externa usada na mentoria. Por isso, antes de executar os testes, mantenha os dois servicos abaixo rodando na sua maquina:
+
+```text
+API / Swagger: http://localhost:3000/api-docs/
+Frontend:      http://localhost:4000/
+```
+
+Os testes de API usam `http://localhost:3000` como base.
+
+Os testes de interface usam `http://localhost:4000` como base.
 
 ## Como instalar
 
@@ -135,7 +150,7 @@ No PowerShell, se a politica de execucao bloquear `npm.ps1`, use:
 npm.cmd test
 ```
 
-Para os testes de interface, mantenha a API em `localhost:3000` e o frontend em `localhost:4000`.
+Para os testes de interface, mantenha a API em `http://localhost:3000` e o frontend em `http://localhost:4000`.
 
 Se o Playwright nao encontrar um navegador local, execute:
 
@@ -158,6 +173,12 @@ reports/cucumber-report.html
 ## Uso com API real
 
 Por padrao, o projeto aponta para `http://localhost:3000`.
+
+A documentacao Swagger da API fica em:
+
+```text
+http://localhost:3000/api-docs/
+```
 
 Endpoints usados:
 
