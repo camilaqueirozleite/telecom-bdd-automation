@@ -1,7 +1,7 @@
 {
-  "name": "telecom-bdd-automation",
+  "name": "bank-transfer-bdd-automation",
   "version": "1.0.0",
-  "description": "",
+  "description": "BDD automation for a bank transfers API using Cucumber.js and Chai.",
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js",

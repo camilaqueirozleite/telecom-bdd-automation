@@ -1,18 +1,19 @@
-# Telecom BDD Automation
+# Bank Transfer BDD Automation
 
-Projeto de automacao BDD para validar o fluxo de ativacao de um SIM card em uma API de telecomunicacoes.
+Projeto de automacao BDD para validar uma API de transferencias bancarias.
 
-O projeto usa Cucumber.js para descrever os cenarios em linguagem Gherkin e Chai para validar os resultados esperados.
+O projeto usa Cucumber.js para descrever os cenarios em linguagem Gherkin e Chai para validar os resultados esperados da API.
 
 ## Objetivo
 
-Automatizar testes de comportamento para o processo de ativacao de SIM card, garantindo que:
+Automatizar testes de comportamento para os fluxos principais da API bancaria, garantindo que:
 
-- A API de telecom esteja disponivel.
-- A ativacao seja realizada com dados validos do cliente.
-- A API retorne o status esperado.
-- A mensagem de sucesso seja exibida corretamente.
-- Dados invalidos sejam rejeitados com status e mensagem de erro esperados.
+- A API esteja disponivel.
+- O login gere um token JWT para credenciais validas.
+- Credenciais invalidas sejam rejeitadas.
+- Contas bancarias sejam listadas com autenticacao.
+- Transferencias sejam criadas com dados validos.
+- Requisicoes sem autenticacao ou com dados invalidos sejam bloqueadas.
 
 ## Tecnologias
 
@@ -24,13 +25,14 @@ Automatizar testes de comportamento para o processo de ativacao de SIM card, gar
 ## Estrutura do projeto
 
 ```text
-telecom-bdd-automation/
+bank-transfer-bdd-automation/
++-- .env.example
 +-- features/
-|   +-- sim-card-activation.feature
+|   +-- bank-transfer.feature
 |   +-- step_definitions/
-|   |   +-- simCardSteps.js
+|   |   +-- bankTransferSteps.js
 |   +-- support/
-|       +-- telecomApiClient.js
+|       +-- bankApiClient.js
 +-- package.json
 +-- package-lock.json
 +-- README.md
@@ -38,24 +40,23 @@ telecom-bdd-automation/
 
 ## Cenarios automatizados
 
-O projeto valida os fluxos de sucesso e erro na ativacao de um SIM card:
+O projeto valida login, listagem de contas e transferencias:
 
 ```gherkin
-Feature: SIM Card Activation
+Feature: Bank Transfers API
 
-  Scenario: Activate a SIM card successfully
-    Given the telecom API is available
-    When I activate a SIM card with valid customer data
-    Then the activation should be completed successfully
-    And the API should return status 201
-    And the activation message should be displayed
+  Scenario: Login successfully
+    Given the banking API is available
+    When I log in with valid credentials
+    Then the API should return status 200
+    And a JWT token should be returned
 
-  Scenario: Reject SIM card activation with invalid customer data
-    Given the telecom API is available
-    When I activate a SIM card with invalid customer data
-    Then the activation should fail
-    And the API should return status 400
-    And the error message should be displayed
+  Scenario: Create a bank transfer successfully
+    Given the banking API is available
+    And I am authenticated
+    When I create a bank transfer with valid data
+    Then the API should return status 201
+    And the transfer success message should be returned
 ```
 
 ## Requisitos
@@ -68,6 +69,23 @@ Feature: SIM Card Activation
 ```bash
 npm install
 ```
+
+## Como configurar
+
+Crie um arquivo `.env` local com base no `.env.example`, ou defina as variaveis de ambiente manualmente.
+
+Exemplo no PowerShell:
+
+```powershell
+$env:API_BASE_URL="http://localhost:3000"
+$env:BANK_API_USERNAME="seu-usuario"
+$env:BANK_API_PASSWORD="sua-senha"
+$env:BANK_SOURCE_ACCOUNT_ID="1"
+$env:BANK_TARGET_ACCOUNT_ID="2"
+$env:BANK_TRANSFER_AMOUNT="100"
+```
+
+O arquivo `.env` nao deve ser enviado ao GitHub.
 
 ## Como executar os testes
 
@@ -95,29 +113,30 @@ reports/cucumber-report.html
 
 ## Uso com API real
 
-Por padrao, o projeto usa uma resposta simulada para manter os testes executaveis localmente.
+Por padrao, o projeto aponta para `http://localhost:3000`.
 
-Para apontar para uma API real, informe a variavel `API_BASE_URL`. O client fara uma chamada `POST` para `/sim-cards/activation`.
+Endpoints usados:
 
-Exemplo no PowerShell:
+- `POST /login`
+- `GET /contas`
+- `POST /transferencias`
 
-```powershell
-$env:API_BASE_URL="https://api.exemplo.com"
-npm.cmd test
-```
+As rotas protegidas usam o header `Authorization: Bearer <token>`.
+
+Importante: o cenario de transferencia com sucesso cria uma transferencia real na API local e altera os saldos das contas envolvidas.
 
 ## Resultado esperado
 
 Ao executar os testes, o resultado esperado e:
 
 ```text
-2 scenarios (2 passed)
-10 steps (10 passed)
+6 scenarios (6 passed)
+24 steps (24 passed)
 ```
 
 ## Proximos passos sugeridos
 
-- Criar mais cenarios de validacao de dados obrigatorios.
-- Adicionar testes para falhas internas da API.
+- Adicionar cenarios para consulta de transferencia por ID.
+- Adicionar cenarios para saldo insuficiente e conta inativa.
 - Publicar relatorios como artefato em uma pipeline de CI.
 - Configurar GitHub Actions para executar os testes automaticamente.
