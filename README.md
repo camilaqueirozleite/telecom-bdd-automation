@@ -24,11 +24,27 @@ Automatizar testes de comportamento para os fluxos principais da API bancaria, g
 - Chai
 - Playwright
 
+## Competencias demonstradas
+
+Este projeto foi estruturado para demonstrar habilidades praticas importantes para vagas de Testes de Software / QA:
+
+- Escrita de cenarios BDD em Gherkin.
+- Automacao de testes de API.
+- Automacao de testes Web UI.
+- Validacao de fluxos positivos e negativos.
+- Uso de massa de teste via variaveis de ambiente.
+- Separacao entre testes de API e testes de interface.
+- Geracao de relatorio HTML de execucao.
+- Documentacao de plano de testes.
+- Registro formal de bug encontrado durante os testes.
+- Boas praticas para proteger dados sensiveis com `.env.example`.
+
 ## Estrutura do projeto
 
 ```text
 bank-transfer-bdd-automation/
 +-- .env.example
++-- BUG_REPORT.md
 +-- features/
 |   +-- bank-transfer.feature
 |   +-- bank-transfer-ui.feature
@@ -40,7 +56,13 @@ bank-transfer-bdd-automation/
 +-- package.json
 +-- package-lock.json
 +-- README.md
++-- TEST_PLAN.md
 ```
+
+## Documentacao complementar
+
+- [TEST_PLAN.md](TEST_PLAN.md): plano de testes com escopo, tipos de teste, massa, criterios e comandos de execucao.
+- [BUG_REPORT.md](BUG_REPORT.md): bug report do problema encontrado na UI ao tratar erro vazio do BFF.
 
 ## Cenarios automatizados
 
