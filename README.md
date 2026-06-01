@@ -23,6 +23,7 @@ Automatizar testes de comportamento para os fluxos principais da API bancaria, g
 - Cucumber.js
 - Chai
 - Playwright
+- Jenkins
 
 ## Competencias demonstradas
 
@@ -35,9 +36,25 @@ Este projeto foi estruturado para demonstrar habilidades praticas importantes pa
 - Uso de massa de teste via variaveis de ambiente.
 - Separacao entre testes de API e testes de interface.
 - Geracao de relatorio HTML de execucao.
+- Pipeline Jenkins para execucao da regressao automatizada.
 - Documentacao de plano de testes.
 - Registro formal de bug encontrado durante os testes.
 - Boas praticas para proteger dados sensiveis com `.env.example`.
+
+## Aderencia a vaga de Tester / QA Automation
+
+Este projeto foi ajustado para evidenciar competencias pedidas em vagas com foco em automacao de testes:
+
+| Requisito da vaga | Como o projeto demonstra |
+| --- | --- |
+| Automacao de testes | Suite automatizada cobrindo API e Web UI |
+| Cucumber obrigatorio | Cenarios BDD escritos em Gherkin e executados com Cucumber.js |
+| Traduzir cenarios em linguagem tecnica | Features descrevem regras de negocio em passos tecnicos automatizados |
+| Controlo de regressoes | Scripts `npm test`, `npm run test:api`, `npm run test:ui` e `npm run test:report` |
+| Validacao de novas funcionalidades | Fluxos de login, contas e transferencias cobertos por testes positivos e negativos |
+| Jenkins valorizado | `Jenkinsfile` com pipeline de instalacao, execucao e publicacao de relatorio |
+| Jira valorizado | `BUG_REPORT.md` documenta defeito em formato proximo ao usado em ferramentas de gestao |
+| Ingles tecnico basico | Steps, features e nomes tecnicos do projeto estao em ingles |
 
 ## Estrutura do projeto
 
@@ -45,6 +62,7 @@ Este projeto foi estruturado para demonstrar habilidades praticas importantes pa
 bank-transfer-bdd-automation/
 +-- .env.example
 +-- BUG_REPORT.md
++-- Jenkinsfile
 +-- features/
 |   +-- bank-transfer.feature
 |   +-- bank-transfer-ui.feature
@@ -63,6 +81,7 @@ bank-transfer-bdd-automation/
 
 - [TEST_PLAN.md](TEST_PLAN.md): plano de testes com escopo, tipos de teste, massa, criterios e comandos de execucao.
 - [BUG_REPORT.md](BUG_REPORT.md): bug report do problema encontrado na UI ao tratar erro vazio do BFF.
+- [Jenkinsfile](Jenkinsfile): exemplo de pipeline Jenkins para instalar dependencias, executar regressao e arquivar relatorio HTML.
 
 ## Cenarios automatizados
 
@@ -192,6 +211,40 @@ O relatorio sera gerado em:
 reports/cucumber-report.html
 ```
 
+## Jenkins
+
+O reposititorio possui um `Jenkinsfile` com uma pipeline declarativa para executar a regressao automatizada.
+
+A pipeline faz:
+
+- Validacao dos parametros obrigatorios.
+- Instalacao das dependencias com `npm ci`.
+- Instalacao do navegador Chromium usado pelo Playwright.
+- Execucao da suite com relatorio HTML.
+- Arquivamento do relatorio em `reports/cucumber-report.html`.
+
+Como a API e o frontend da mentoria rodam localmente, o agente Jenkins tambem precisa ter acesso aos servicos:
+
+```text
+http://localhost:3000
+http://localhost:4000
+```
+
+Parametros esperados no Jenkins:
+
+```text
+API_BASE_URL
+WEB_BASE_URL
+BANK_API_USERNAME
+BANK_API_PASSWORD
+BANK_SOURCE_ACCOUNT_ID
+BANK_TARGET_ACCOUNT_ID
+BANK_TRANSFER_AMOUNT
+BANK_UI_TRANSFER_AMOUNT
+```
+
+Use o campo de senha do Jenkins para `BANK_API_PASSWORD` e evite expor credenciais no repositorio.
+
 ## Uso com API real
 
 Por padrao, o projeto aponta para `http://localhost:3000`.
@@ -239,5 +292,5 @@ Ao executar os testes, o resultado esperado e:
 - Adicionar cenarios para consulta de transferencia por ID.
 - Adicionar cenarios para saldo insuficiente e conta inativa.
 - Adicionar tratamento de erro vazio no frontend para transferencias invalidas.
-- Publicar relatorios como artefato em uma pipeline de CI.
-- Configurar GitHub Actions para executar os testes automaticamente.
+- Integrar evidencias de teste em uma ferramenta como Jira ou Xray.
+- Evoluir a pipeline Jenkins para iniciar automaticamente API e frontend, caso o codigo da aplicacao esteja disponivel.

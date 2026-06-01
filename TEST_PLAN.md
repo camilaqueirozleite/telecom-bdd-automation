@@ -51,6 +51,7 @@ Out of scope:
 - Playwright for Web UI automation.
 - Node.js and npm for execution.
 - Cucumber HTML formatter for reports.
+- Jenkins for regression pipeline example.
 
 ## Environment
 
