@@ -1,3 +1,12 @@
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Cucumber.js](https://img.shields.io/badge/Cucumber.js-BDD-green?logo=cucumber&logoColor=white)](https://cucumber.io/)
+[![Playwright](https://img.shields.io/badge/Playwright-Test%20Automation-45ba4b?logo=playwright&logoColor=white)](https://playwright.dev/)
+[![Chai](https://img.shields.io/badge/Chai-Assertions-A40802?logo=chai&logoColor=white)](https://www.chaijs.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-83%25-f7df1e?logo=javascript&logoColor=black)](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+[![Gherkin](https://img.shields.io/badge/Gherkin-17%25-60c659?logo=cucumber&logoColor=white)](https://cucumber.io/docs/gherkin/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-d24939?logo=jenkins&logoColor=white)](https://www.jenkins.io/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 # Bank Transfer BDD Automation
 
 Projeto de automacao BDD para validar uma API de transferencias bancarias e sua interface web.
